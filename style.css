@@ -1,0 +1,69 @@
+.feedback{
+    visibility: hidden;
+    color:red;
+}
+#inputCards{
+    width: 50%;
+}
+#navegacion #formulario input{
+    margin-right: 1em;
+}
+#Contenedor-global .contenedor-cartas-generadas{
+    width: 100%;
+    height: 180px;
+    border:1px solid black;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #005d16;
+    transition: .3s ease;
+}
+.carta{
+    margin-right: 5px;
+    width: 120px;
+    height: 140px;
+    background:white;
+    border:1px solid black;
+    border-radius: 10px;
+    transition:.2s;
+    position:relative;
+    overflow:hidden;
+    margin-right: 12px;
+}
+.suit{
+    width: 25%;
+    height: 25%;
+    border:1px solid black;
+    position:absolute
+}
+#suit_arriba{
+    top:5%;
+    left:5%;
+}
+#suit_abajo{
+    bottom:5%;
+    right:5%;
+}
+.carta:hover{
+    transform:scale(1.13);
+}
+
+#Contenedor-global .contenedor-cartas-generadas:hover{
+    background-color: #009929;
+}
+
+/* --------------------- ACA PARTE SECCIÓN DE PINTAS -----------------------------------------*/
+
+/* .spade{
+}
+.club{
+
+}
+.heart{
+
+}
+.diamond{
+    
+} */
+
+
