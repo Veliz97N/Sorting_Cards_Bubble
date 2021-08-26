@@ -25,28 +25,15 @@
                 <input type="number" class="form-control" id="inputCards">
                 <input type="button" value="Draw" id="draw">
                 <input type="button" value="Sort" id="sort">
-                <div id="invalid-card" class="feedback">Please provide a valid card number.</div>
+                <div id="invalid-card" class="feedback">Por favor ingrese un numero de cartas mayor a cero y menor a 15.</div>
             </div>           
         </form>
     </nav>
 
     <div id= "Contenedor-global" class="container-fluid pt-2">
-        <div class="contenedor-cartas-generadas">
-            <div class="carta"> 
-                <!--Ya estan dados los estilos para carta, suit y numero en CSS-->
-                <!--Falta ahora crear las clases para las pintas con las imagenes-->
-                <div class="suit" id="suit_arriba">
-                    <img class= "spade" src="/Suit/1.png">
-                </div>                    
-                <div class="suit" id="suit_abajo">
-                    <img class= "spade" src="/Suit/1.png">
-                </div>
-                <div class="numero" id="numero_carta">
-                    A
-                </div>
-            </div>
-        </div>
+        <div class="contenedor-cartas-generadas" id="contenedor-cartas-generadas"></div>
     </div>
+    <script src="/module.js"></script>
 </body>
 
 </html>
