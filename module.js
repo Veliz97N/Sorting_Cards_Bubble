@@ -1,8 +1,11 @@
 let valores_cartas = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
 let valores_pintas = ["spade", "club", "heart", "diamond"];
-const feedback=document.getElementById("invalid-card");
-const inputCards=document.getElementById("inputCards");
-const drawCards=document.getElementById("draw");
+const feedback = document.getElementById("invalid-card");
+const inputCards = document.getElementById("inputCards");
+const drawCards = document.getElementById("draw");
+const cartas = document.getElementById("contenedor-cartas-generadas").children;
+const contenedor_global=document.getElementById("Contenedor-global");
+const sortCards = document.getElementById("sort");
 
 function RandomIndex(array) {
     let largo_array = array.length;
@@ -27,55 +30,80 @@ function RandomCard() {
     //Se añaden atributos a #suit_arriba y #suit_abajo
     suit_arriba.setAttribute("id", "suit_arriba");
     suit_abajo.setAttribute("id", "suit_abajo");
-    
+
     //Se añaden pintas y valor numerico a la carta
     let indice_pinta = RandomIndex(valores_pintas);
-    const imagen_suit=document.createElement("img");
-    
-    if(valores_pintas[indice_pinta]=="spade"){
-        imagen_suit.setAttribute("src","/Suit/1.png");
+    const imagen_suit = document.createElement("img");
+
+    if (valores_pintas[indice_pinta] == "spade") {
+        imagen_suit.setAttribute("src", "/Suit/1.png");
     }
-    else if(valores_pintas[indice_pinta]=="club"){
-        imagen_suit.setAttribute("src","/Suit/3.png");
+    else if (valores_pintas[indice_pinta] == "club") {
+        imagen_suit.setAttribute("src", "/Suit/3.png");
     }
-    else if(valores_pintas[indice_pinta]=="heart"){
-        imagen_suit.setAttribute("src","/Suit/2.png");
+    else if (valores_pintas[indice_pinta] == "heart") {
+        imagen_suit.setAttribute("src", "/Suit/2.png");
     }
-    else if(valores_pintas[indice_pinta]=="diamond"){
-        imagen_suit.setAttribute("src","/Suit/4.png");
+    else if (valores_pintas[indice_pinta] == "diamond") {
+        imagen_suit.setAttribute("src", "/Suit/4.png");
     }
     let indice_carta = RandomIndex(valores_cartas);
 
     suit_arriba.appendChild(imagen_suit);
     suit_abajo.appendChild(imagen_suit.cloneNode(true));
-    numero.innerText=valores_cartas[indice_carta];
+    numero.innerText = valores_cartas[indice_carta];
     //Se añade la carta a su contenedor
     contenedor_cartas_generadas.appendChild(carta);
 }
-inputCards.addEventListener("keyup",()=>{
-    if(inputCards.value=="" || inputCards.value==null){
-        feedback.style.visibility="hidden";
+function Sorting_bubble() {   
+    let array_cartas=[]
+    for(i=0;i<cartas.length;i++){
+        array_cartas.push(cartas[i]);
+    }
+    let wall = cartas.length - 1;
+    while (wall > 0) {
+        let index = 0;
+        while (index < wall) {            
+            if (cartas[index].children[2].innerText > cartas[index+1].children[2].innerText) { //ACA NO ESTOY SOBREESCRBIENDO LA WEAA
+                console.log("Carta 1: "+cartas[index].children[2].innerText + "Carta 2: "+cartas[index+1].children[2].innerText);
+                let aux = cartas[index];
+                array_cartas[index] = array_cartas[index + 1];
+                array_cartas[index + 1] = aux;
+            }
+            index++;
+        }
+        wall--;
+    }
+    console.log(array_cartas);       
+}
+
+inputCards.addEventListener("keyup", () => {
+    if (inputCards.value == "" || inputCards.value == null) {
+        feedback.style.visibility = "hidden";
     }
 
-    else if(inputCards.value>15 || inputCards.value<=0){
-        feedback.style.visibility="visible";
+    else if (inputCards.value > 15 || inputCards.value <= 0) {
+        feedback.style.visibility = "visible";
     }
-    else{
-        feedback.style.visibility="hidden";
+    else {
+        feedback.style.visibility = "hidden";
     }
 });
 
-drawCards.addEventListener("click",()=>{   
-    if(inputCards.value<=15 && inputCards.value>0){
-        let i=0;
-        const contenedor_cartas_generadas= document.getElementById("contenedor-cartas-generadas")
+drawCards.addEventListener("click", () => {
+    if (inputCards.value <= 15 && inputCards.value > 0) {
+        let i = 0;
+        const contenedor_cartas_generadas = document.getElementById("contenedor-cartas-generadas")
         while (contenedor_cartas_generadas.firstChild) {
             contenedor_cartas_generadas.removeChild(contenedor_cartas_generadas.firstChild);
-        }    
-        while(i<inputCards.value){
+        }
+        while (i < inputCards.value) {
             RandomCard();
             i++;
         }
     }
 });
 
+sortCards.addEventListener("click", () => {
+    Sorting_bubble();
+});
