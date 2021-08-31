@@ -18,6 +18,15 @@
     background-color: #005d16;
     transition: .3s ease;
 }
+#Contenedor-global .contenedor_ordenadas{
+    width: 100%;
+    height: 180px;
+    border:1px solid black;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #005d16;
+}
 
 /*---------------INICIO SECCION CARTA-------------------------*/
 .carta{

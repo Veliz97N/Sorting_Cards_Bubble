@@ -1,10 +1,10 @@
-let valores_cartas = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+let valores_cartas = ["2", "3", "4", "5", "6", "7", "8", "9", "10","J", "Q", "K", "A"];
 let valores_pintas = ["spade", "club", "heart", "diamond"];
 const feedback = document.getElementById("invalid-card");
 const inputCards = document.getElementById("inputCards");
 const drawCards = document.getElementById("draw");
 const cartas = document.getElementById("contenedor-cartas-generadas").children;
-const contenedor_global=document.getElementById("Contenedor-global");
+const contenedor_global = document.getElementById("Contenedor-global");
 const sortCards = document.getElementById("sort");
 
 function RandomIndex(array) {
@@ -48,33 +48,38 @@ function RandomCard() {
         imagen_suit.setAttribute("src", "/Suit/4.png");
     }
     let indice_carta = RandomIndex(valores_cartas);
-
     suit_arriba.appendChild(imagen_suit);
     suit_abajo.appendChild(imagen_suit.cloneNode(true));
     numero.innerText = valores_cartas[indice_carta];
     //Se añade la carta a su contenedor
     contenedor_cartas_generadas.appendChild(carta);
 }
-function Sorting_bubble() {   
-    let array_cartas=[]
-    for(i=0;i<cartas.length;i++){
+function Sorting_bubble() {
+    let array_cartas = [];
+    console.log(cartas);
+    for (i = 0; i < cartas.length; i++) {
         array_cartas.push(cartas[i]);
     }
     let wall = cartas.length - 1;
     while (wall > 0) {
         let index = 0;
-        while (index < wall) {            
-            if (cartas[index].children[2].innerText > cartas[index+1].children[2].innerText) { //ACA NO ESTOY SOBREESCRBIENDO LA WEAA
-                console.log("Carta 1: "+cartas[index].children[2].innerText + "Carta 2: "+cartas[index+1].children[2].innerText);
-                let aux = cartas[index];
+        while (index < wall) {
+            if (Number(array_cartas[index].children[2].innerText) > Number(array_cartas[index + 1].children[2].innerText)) {
+                console.log("Carta 1: " + array_cartas[index].children[2].innerText + " Carta 2: " + array_cartas[index + 1].children[2].innerText);
+                let aux = array_cartas[index];
                 array_cartas[index] = array_cartas[index + 1];
                 array_cartas[index + 1] = aux;
+                const contenedor_ordenadas = document.createElement("div");
+                contenedor_ordenadas.classList.add("contenedor_ordenadas")
+                 for (x = 0; x < array_cartas.length; x++) {
+                    contenedor_ordenadas.appendChild(array_cartas[x].cloneNode(true))
+                }
+                contenedor_global.appendChild(contenedor_ordenadas);
             }
             index++;
         }
         wall--;
     }
-    console.log(array_cartas);       
 }
 
 inputCards.addEventListener("keyup", () => {
