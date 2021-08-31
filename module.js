@@ -7,6 +7,7 @@ const drawCards = document.getElementById("draw");
 const cartas = document.getElementById("contenedor-cartas-generadas").children;
 const contenedor_ordenadas_global = document.getElementById("contenedor_ordenadas_global");
 const sortCards = document.getElementById("sort");
+const bubble_div= document.getElementById("bubble");
 
 function RandomIndex(array) {
     let largo_array = array.length;
@@ -56,6 +57,7 @@ function RandomCard() {
     contenedor_cartas_generadas.appendChild(carta);
 }
 function Sorting_bubble() {
+    let iteracion=0;
     while (contenedor_ordenadas_global.firstChild) {
         contenedor_ordenadas_global.removeChild(contenedor_ordenadas_global.firstChild);
     }
@@ -70,11 +72,16 @@ function Sorting_bubble() {
         let index = 0;
         while (index < wall) {
             if (valores_cartas_alfabeticas[(array_cartas[index].children[2].innerText)] > valores_cartas_alfabeticas[(array_cartas[index + 1].children[2].innerText)]) {
+                iteracion++; //Se suma una iteracion al contador
                 let aux = array_cartas[index];
                 array_cartas[index] = array_cartas[index + 1];
                 array_cartas[index + 1] = aux;
                 const contenedor_ordenadas = document.createElement("div");
+                const iteracion_div = document.createElement("div"); //Se crea el recuadro de iteracion
+                iteracion_div.classList.add("iteracion_div")
+                iteracion_div.innerText=iteracion;
                 contenedor_ordenadas.classList.add("contenedor_ordenadas")
+                contenedor_ordenadas.appendChild(iteracion_div);
                 for (x = 0; x < array_cartas.length; x++) {
                     contenedor_ordenadas.appendChild(array_cartas[x].cloneNode(true))
                 }
@@ -101,6 +108,7 @@ inputCards.addEventListener("keyup", () => {
 
 drawCards.addEventListener("click", () => {
     if (inputCards.value <= 15 && inputCards.value > 0) {
+        bubble_div.style.visibility="visible";
         let i = 0;
         const contenedor_cartas_generadas = document.getElementById("contenedor-cartas-generadas")
         while (contenedor_cartas_generadas.firstChild) {
