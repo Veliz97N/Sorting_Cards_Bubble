@@ -1,10 +1,11 @@
-let valores_cartas = ["2", "3", "4", "5", "6", "7", "8", "9", "10","J", "Q", "K", "A"];
+let valores_cartas = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"];
+let valores_cartas_alfabeticas = { "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "10":10,"J": 100, "Q": 101, "K": 102, "A": 103 };
 let valores_pintas = ["spade", "club", "heart", "diamond"];
 const feedback = document.getElementById("invalid-card");
 const inputCards = document.getElementById("inputCards");
 const drawCards = document.getElementById("draw");
 const cartas = document.getElementById("contenedor-cartas-generadas").children;
-const contenedor_global = document.getElementById("Contenedor-global");
+const contenedor_ordenadas_global = document.getElementById("contenedor_ordenadas_global");
 const sortCards = document.getElementById("sort");
 
 function RandomIndex(array) {
@@ -55,6 +56,10 @@ function RandomCard() {
     contenedor_cartas_generadas.appendChild(carta);
 }
 function Sorting_bubble() {
+    while (contenedor_ordenadas_global.firstChild) {
+        contenedor_ordenadas_global.removeChild(contenedor_ordenadas_global.firstChild);
+    }
+
     let array_cartas = [];
     console.log(cartas);
     for (i = 0; i < cartas.length; i++) {
@@ -64,17 +69,16 @@ function Sorting_bubble() {
     while (wall > 0) {
         let index = 0;
         while (index < wall) {
-            if (Number(array_cartas[index].children[2].innerText) > Number(array_cartas[index + 1].children[2].innerText)) {
-                console.log("Carta 1: " + array_cartas[index].children[2].innerText + " Carta 2: " + array_cartas[index + 1].children[2].innerText);
+            if (valores_cartas_alfabeticas[(array_cartas[index].children[2].innerText)] > valores_cartas_alfabeticas[(array_cartas[index + 1].children[2].innerText)]) {
                 let aux = array_cartas[index];
                 array_cartas[index] = array_cartas[index + 1];
                 array_cartas[index + 1] = aux;
                 const contenedor_ordenadas = document.createElement("div");
                 contenedor_ordenadas.classList.add("contenedor_ordenadas")
-                 for (x = 0; x < array_cartas.length; x++) {
+                for (x = 0; x < array_cartas.length; x++) {
                     contenedor_ordenadas.appendChild(array_cartas[x].cloneNode(true))
                 }
-                contenedor_global.appendChild(contenedor_ordenadas);
+                contenedor_ordenadas_global.appendChild(contenedor_ordenadas);
             }
             index++;
         }
@@ -101,6 +105,9 @@ drawCards.addEventListener("click", () => {
         const contenedor_cartas_generadas = document.getElementById("contenedor-cartas-generadas")
         while (contenedor_cartas_generadas.firstChild) {
             contenedor_cartas_generadas.removeChild(contenedor_cartas_generadas.firstChild);
+        }
+        while (contenedor_ordenadas_global.firstChild) {
+            contenedor_ordenadas_global.removeChild(contenedor_ordenadas_global.firstChild);
         }
         while (i < inputCards.value) {
             RandomCard();
